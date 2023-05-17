@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TagForm } from "./TagForm";
+import { getTags } from "../../managers/TagManager"
 
 export const TagList = () => {
   const [tags, setTags] = useState([]);

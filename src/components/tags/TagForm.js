@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { createTag } from "./TagManager"
+import { createTag } from "../../managers/TagManager"
 
 
 export const TagForm = ({getAllTags}) => {

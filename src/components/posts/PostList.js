@@ -12,7 +12,7 @@ export const PostList = () => {
     {
         posts.map(post => {
             return <section key={`post--${post.id}`} className="post">
-                <div className="post__title">{post.title} by {post.user}</div>
+                <div className="post__title">{post.title} by {post.user.id}</div>
                 <div className="post__image">{post.image_url}</div>
                 <div className="post__content">{post.content}</div>
                 <div className="post__publication_date">Published: {post.publication_date}</div>
