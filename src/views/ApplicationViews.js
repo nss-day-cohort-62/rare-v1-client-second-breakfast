@@ -1,10 +1,11 @@
 import { Route, Routes } from "react-router-dom"
 import { Login } from "../components/auth/Login"
 import { Register } from "../components/auth/Register"
-import { AdminViews } from "./AdminView"
 import { Authorized } from "./Authorized"
 import { AuthorSubscription } from "../components/author/AuthorSubscriptions"
 import { PostList } from "../components/posts/PostList"
+import { PostDetails } from "../components/posts/PostDetails"
+import { MyPost } from "../components/posts/MyPost"
 
 export const ApplicationViews = ({ token, setToken }) => {
   return <>
@@ -14,10 +15,8 @@ export const ApplicationViews = ({ token, setToken }) => {
       <Route element={<Authorized token={token} />}>
         <Route path="/" element={<AuthorSubscription />} />
         <Route path="/posts" element={<PostList />} />
-
-      </Route>
-        
-      <Route element={<AdminViews />}>
+        <Route path="/posts/:postId" element={<PostDetails />} />
+        {/* <Route path="/posts/my-post" element={<MyPost />} /> */}
       </Route>
     </Routes>
   </>
