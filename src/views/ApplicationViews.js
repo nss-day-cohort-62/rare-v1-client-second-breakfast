@@ -5,6 +5,9 @@ import { Authorized } from "./Authorized"
 import { PostList } from "../components/posts/PostList"
 import { AllPosts } from "../components/posts/AllPosts"
 import { PostForm } from "../components/posts/PostForm"
+import { PostDetails } from "../components/posts/PostDetails"
+import { MyPost } from "../components/posts/MyPost"
+
 
 export const ApplicationViews = ({ token, setToken }) => {
   return <>
@@ -16,8 +19,10 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/" element={<PostList />} />
         <Route path="/posts" element={<AllPosts />} />
         <Route path="/posts/publish" element={<PostForm />} />
+        <Route path="/posts/:postId" element={<PostDetails />} />
       </Route>
-
+  
+        {/* <Route path="/posts/my-post" element={<MyPost />} /> */}
     </Routes>
   </>
 }

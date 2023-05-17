@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { getPosts } from "../../managers/PostManager"
 import "./Posts.css"
 
