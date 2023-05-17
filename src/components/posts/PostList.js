@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { getPosts } from "../../managers/PostManager"
+import "./Posts.css"
 
 export const PostList = () => {
     const [ posts, setPosts ] = useState([])
@@ -9,18 +10,26 @@ export const PostList = () => {
         getPosts().then(postData => setPosts(postData))
     }, [])
 
-    return <article className="posts">
+    return <>
+    <article className="add__home_posts">
+        <button className="add__posts_button">+</button>
+    </article>
+    <article className="posts">
     {
         posts.map(post => {
             return <section key={`post--${post.id}`} className="post">
-                <div className="post__title">
-                    <Link to={`/posts/${post.id}`}>{post.title} by {post.user.user.username}</Link>
-                    </div>
-                <div className="post__image">{post.image_url}</div>
-                <div className="post__content">{post.content}</div>
-                <div className="post__publication_date">Published: {post.publication_date}</div>
+                <section className="post__header">
+                    <div className="post__title">{post.title}</div>
+                    <div className="post__publication_date"> {post.publication_date}</div>
+                </section>
+                <img className="post__image" src={post.image_url}></img>
+                <section className="post__footer">
+                    <div className="post__author">Author: <b>{post.user.user.username}</b></div>
+                    <div className="post__reaction_count">Reaction count: 0</div>
+                </section>
             </section>
         })
     }
 </article>
+</>
 }
