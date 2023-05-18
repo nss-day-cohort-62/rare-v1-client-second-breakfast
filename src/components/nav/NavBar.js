@@ -34,7 +34,7 @@ export const NavBar = ({ token, setToken }) => {
             token
               ?
               <>
-              <Link to="/posts" className="navbar-item">All Posts</Link>
+              <Link to="/allposts" className="navbar-item">All Posts</Link>
               <Link to="/myposts" className="navbar-item">My Posts</Link>
               <Link to="/category" className="navbar-item">Category Manager</Link>
               <Link to="/tagmanager" className="navbar-item">Tag Manager</Link>
