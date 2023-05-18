@@ -8,7 +8,7 @@ export const getUsers = () => {
 }
 
 export const getUser = (userId) => {
-    return fetch(`http://localhost:8000/rareuser/${userId}`, {
+    return fetch(`http://localhost:8000/rareuser/${userId}/`, {
         headers: {
         "Authorization": `Token ${localStorage.getItem("auth_token")}`,
         },

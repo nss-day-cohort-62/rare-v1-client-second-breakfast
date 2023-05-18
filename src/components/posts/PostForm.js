@@ -8,14 +8,15 @@ export const PostForm = () => {
     const navigate = useNavigate()
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
+    const [selectedTags, setSelectedTags] = useState([])
     const [post, updatePost] = useState({
         title: "",
-        publication_date: "",
+        publication_date: new Date().toISOString().slice(0, 10),
         image_url: "",
         content: "",
         approved: "",
         category: "",
-        tag: ""
+        tag: []
     })
 
     useEffect(
@@ -38,6 +39,15 @@ export const PostForm = () => {
         []
     )
 
+    const handleCheckbox = (evt) => {
+        const { checked, value } = evt.target;
+        if (checked) {
+            setSelectedTags([...selectedTags, value]);
+        } else {
+            setSelectedTags(selectedTags.filter(tag => tag !== value));
+        }
+    };
+
     const publishButton = (event) => {
         event.preventDefault()
 
@@ -48,7 +58,7 @@ export const PostForm = () => {
             content: post.content,
             approved: true,
             category: parseInt(post.category),
-            tag: parseInt(post.tag)
+            tag: parseInt(selectedTags)
         }
 
         return publishPost(postToPublish)
@@ -66,7 +76,7 @@ export const PostForm = () => {
                             <input
                                 required autoFocus
                                 type="text"
-                                className="form-control"
+                                className="form-control-title"
                                 placeholder="Title"
                                 value={post.title}
                                 onChange={
@@ -85,7 +95,7 @@ export const PostForm = () => {
                             <input
                                 required autoFocus
                                 type="text"
-                                className="form-control"
+                                className="form-control-image"
                                 placeholder="Image URL"
                                 value={post.image_url}
                                 onChange={
@@ -104,7 +114,7 @@ export const PostForm = () => {
                             <textarea
                                 required autoFocus
                                 type="text"
-                                className="form-control-band__bio"
+                                className="form-control-content"
                                 placeholder="Article content"
                                 value={post.content}
                                 onChange={
@@ -122,6 +132,7 @@ export const PostForm = () => {
                         <div className="input__field">
                             <select
                                 value={post.category}
+                                className="form-control-category"
                                 onChange={
                                     (evt) => {
                                         const copy = { ...post }
@@ -146,10 +157,10 @@ export const PostForm = () => {
                                         <input
                                             type="checkbox"
                                             name="tags"
-                                            className="checkbox"
+                                            className="form-control-tag"
                                             value={tag.id}
-                                            // checked={updatedEntry.checked}
-                                            // onChange={handleControlledInputChange}
+                                            checked={selectedTags.checked}
+                                            onChange={handleCheckbox}
                                             />
                                             {tag.label}
                                     </label>

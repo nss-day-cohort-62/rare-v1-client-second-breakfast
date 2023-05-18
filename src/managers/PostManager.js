@@ -27,3 +27,12 @@ export const publishPost = (postToPublish) => {
     })
         .then(res => res.json())
 }
+
+export const deletePost = (postId) => {
+    return fetch(`http://localhost:8000/posts/${postId}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        }
+    })
+}
