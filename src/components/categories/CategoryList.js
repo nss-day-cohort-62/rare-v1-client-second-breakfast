@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { getCategories, createCategory } from '../../managers/CategoryManager'
+import { getCategories, createCategory, updateCategory, deleteCategory } from '../../managers/CategoryManager'
 import styles from './category.css'
 
 export const Category = () => {
     const [categories, setCategories] = useState([])
     const [category, setCategory] = useState({})
+    const [editingCategory, setEditingCategory] = useState(null)
+    const [editedCategory, setEditedCategory] = useState({})
 
     const handleInputChange = (evt) => {
         const newCategory = { ...category }
         newCategory[evt.target.name] = evt.target.value
         setCategory(newCategory)
+    }
+
+    const handleEditInputChange = (evt) => {
+        const categoryToEdit = { ...editedCategory }
+        categoryToEdit[evt.target.name] = evt.target.value
+        setEditedCategory(categoryToEdit)
     }
 
     const createANewCategory = (e) => {
@@ -29,6 +37,35 @@ export const Category = () => {
         }
     }
 
+    const handleEditCategory = (id) => {
+        setEditingCategory(id)
+        const categoryToEdit = categories.find(cat => cat.id === id)
+        setEditedCategory(categoryToEdit)
+    }
+
+    const handleDeleteCategory = (id) => {
+        deleteCategory(id)
+        .then(() => getCategories())
+        .then(data => {
+            const sortedData = data.sort((a, b) => a.label.localeCompare(b.label))
+            setCategories(sortedData)
+        })
+    }
+
+    const saveCategory = (e) => {
+        e.preventDefault()
+        updateCategory(editingCategory, editedCategory)
+            .then(() => {
+                setEditingCategory(null)
+                setEditedCategory({})
+                return getCategories()
+            })
+            .then(data => {
+                const sortedData = data.sort((a, b) => a.label.localeCompare(b.label))
+                setCategories(sortedData)
+            })
+    }    
+
     useEffect(() => {
         getCategories()
             .then(data => {
@@ -43,31 +80,42 @@ export const Category = () => {
                 <h1>Categories</h1>
                 {categories.map(category => (
                     <div key={category.id} className="categoryRow">
-                        <span>{category.label}</span>
-                        <button className="editButton">Edit</button>
-                        <button className="deleteButton">Delete</button>
+                        {editingCategory === category.id ? (
+                            <form onSubmit={saveCategory}>
+                                <input type="text" name="label" required className="form-control"
+                                    value={editedCategory.label}
+                                    onChange={handleEditInputChange}
+                                />
+                                <button type="submit" className="btn btn-primary">Save</button>
+                            </form>
+                        ) : (
+                            <>
+                                <span>{category.label}</span>
+                                <button onClick={() => handleEditCategory(category.id)} className="editButton">Edit</button>
+                                <button onClick={() => handleDeleteCategory(category.id)} className="deleteButton">Delete</button>
+                            </>
+                        )}
                     </div>
                 ))}
             </div>
             <div className="categoryForm">
-                <form className="">
+                <form className="" onSubmit={createANewCategory}>
                     <h2 className="">Create A New Category</h2>
                     <fieldset>
                         <div className="category">
-                        <label htmlFor="name">Label: </label>
-                        <input type="text" name="label" required className="form-control"
-                            placeholder="Enter a new category label here"
-                            onChange={handleInputChange}
-                        />
+                            <label htmlFor="name">Label: </label>
+                            <input type="text" name="label" required className="form-control"
+                                placeholder="Enter a new category label here"
+                                value={category.label || ''}
+                                onChange={handleInputChange}
+                            />
                         </div>
                     </fieldset>
                     <button type="submit"
-                        onClick={createANewCategory}
                         className="btn btn-primary">
                         Save New Category
                     </button>
                 </form>
             </div>
         </div>
-    )
-}
+    )}    
