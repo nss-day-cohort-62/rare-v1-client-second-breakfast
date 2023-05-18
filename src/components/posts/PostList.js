@@ -1,31 +1,58 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import { getPosts } from "../../managers/PostManager"
+import { useNavigate } from "react-router-dom"
+import { deletePost, getPosts } from "../../managers/PostManager"
 import "./Posts.css"
 
 export const PostList = () => {
     const [ posts, setPosts ] = useState([])
 
+    const navigate = useNavigate()
+
     useEffect(() => {
         getPosts().then(postData => setPosts(postData))
     }, [])
 
+    useEffect(() => {
+        getPosts().then(postData => {
+        const sortedData = postData.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date))
+        setPosts(sortedData)
+        })
+    }, [])
+
+
+    const handleDeletePost = (postId) => {
+        deletePost(postId)
+            .then(() => {
+                alert(`Post has been deleted`)
+                getPosts().then((postData) => setPosts(postData))
+            })
+    }
+
+
     return <>
     <article className="add__home_posts">
-        <button className="add__posts_button">+</button>
+        <button className="add__posts_button" onClick={() => {
+            navigate({ pathname: "/posts/publish" })
+            }}>+</button>
     </article>
     <article className="posts">
     {
         posts.map(post => {
             return <section key={`post--${post.id}`} className="post">
                 <section className="post__header">
-                    <div className="post__title">{post.title}</div>
+                    <div className="post__title" onClick={() => navigate(`/posts/${post.id}`)}>{post.title}</div>
                     <div className="post__publication_date"> {post.publication_date}</div>
                 </section>
-                <img className="post__image" src={post.image_url}></img>
+                <img className="post__image" src={post.image_url} onClick={() => navigate(`/posts/${post.id}`)}></img>
                 <section className="post__footer">
-                    <div className="post__author">Author: <b>{post.user.user.username}</b></div>
+                    <div className="post__author" onClick={() => navigate(`/users/${post.user.user.id}`)}>Author: <b>{post.user.user.username}</b></div>
+                    <section className="reaction__buttons">
                     <div className="post__reaction_count">Reaction count: 0</div>
+                </section>
+                </section>
+                <section className="action__buttons_container">
+                    <img className="action__buttons" src="gear.png"></img>
+                    <img className="action__buttons" src="trashcan.png" onClick={() => {handleDeletePost(post.id)}}></img>
                 </section>
             </section>
         })
