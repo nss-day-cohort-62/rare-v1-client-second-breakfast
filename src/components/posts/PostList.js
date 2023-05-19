@@ -51,7 +51,7 @@ export const PostList = () => {
                 </section>
                 </section>
                 <section className="action__buttons_container">
-                    <img className="action__buttons" src="gear.png"></img>
+                    <img className="action__buttons" src="gear.png" onClick={() => navigate(`/posts/${post.id}/edit`)}></img>
                     <img className="action__buttons" src="trashcan.png" onClick={() => {handleDeletePost(post.id)}}></img>
                 </section>
             </section>

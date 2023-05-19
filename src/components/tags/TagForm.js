@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { createTag } from "../../managers/TagManager"
+import './Tag.css'
 
 
 export const TagForm = ({getAllTags}) => {
     const [tag, setTag] = useState({})
+    const [tags, setTags] = useState([]);
 
     const handleInputChange = (evt) => {
         const newTag = {...tag}
@@ -23,7 +25,7 @@ export const TagForm = ({getAllTags}) => {
         }
     }
 
-    return <form className="">
+    return <form className="formBorder">
       <h2 className="">Create A New Tag</h2>
       <fieldset>
         <div className="tag">

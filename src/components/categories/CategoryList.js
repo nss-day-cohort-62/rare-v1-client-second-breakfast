@@ -1,78 +1,83 @@
-import React, { useEffect, useState } from 'react'
-import { getCategories, createCategory, updateCategory, deleteCategory } from '../../managers/CategoryManager'
-import styles from './category.css'
+import React, { useEffect, useState } from "react";
+import {
+  getCategories,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+} from "../../managers/CategoryManager";
+import styles from "./category.css";
 
 export const Category = () => {
-    const [categories, setCategories] = useState([])
-    const [category, setCategory] = useState({})
-    const [editingCategory, setEditingCategory] = useState(null)
-    const [editedCategory, setEditedCategory] = useState({})
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState({});
+  const [editingCategory, setEditingCategory] = useState(null);
+  const [editedCategory, setEditedCategory] = useState({});
 
-    const handleInputChange = (evt) => {
-        const newCategory = { ...category }
-        newCategory[evt.target.name] = evt.target.value
-        setCategory(newCategory)
-    }
+  const handleInputChange = (evt) => {
+    const newCategory = { ...category };
+    newCategory[evt.target.name] = evt.target.value;
+    setCategory(newCategory);
+  };
 
-    const handleEditInputChange = (evt) => {
-        const categoryToEdit = { ...editedCategory }
-        categoryToEdit[evt.target.name] = evt.target.value
-        setEditedCategory(categoryToEdit)
-    }
+  const handleEditInputChange = (evt) => {
+    const categoryToEdit = { ...editedCategory };
+    categoryToEdit[evt.target.name] = evt.target.value;
+    setEditedCategory(categoryToEdit);
+  };
 
-    const createANewCategory = (e) => {
-        e.preventDefault()
-        if (category.label === "") {
-            window.alert("Oops, you need a label!")
-        }
-        else {
-            createCategory({
-                label: category.label
-            })
-            .then(() => getCategories())
-            .then(data => {
-                const sortedData = data.sort((a, b) => a.label.localeCompare(b.label))
-                setCategories(sortedData)
-            })
-        }
-    }
-
-    const handleEditCategory = (id) => {
-        setEditingCategory(id)
-        const categoryToEdit = categories.find(cat => cat.id === id)
-        setEditedCategory(categoryToEdit)
-    }
-
-    const handleDeleteCategory = (id) => {
-        deleteCategory(id)
+  const createANewCategory = (e) => {
+    e.preventDefault();
+    if (category.label === "") {
+      window.alert("Oops, you need a label!");
+    } else {
+      createCategory({
+        label: category.label,
+      })
         .then(() => getCategories())
-        .then(data => {
-            const sortedData = data.sort((a, b) => a.label.localeCompare(b.label))
-            setCategories(sortedData)
-        })
+        .then((data) => {
+          const sortedData = data.sort((a, b) =>
+            a.label.localeCompare(b.label)
+          );
+          setCategories(sortedData);
+        });
     }
+  };
 
-    const saveCategory = (e) => {
-        e.preventDefault()
-        updateCategory(editingCategory, editedCategory)
-            .then(() => {
-                setEditingCategory(null)
-                setEditedCategory({})
-                return getCategories()
-            })
-            .then(data => {
-                const sortedData = data.sort((a, b) => a.label.localeCompare(b.label))
-                setCategories(sortedData)
-            })
-    }    
+  const handleEditCategory = (id) => {
+    setEditingCategory(id);
+    const categoryToEdit = categories.find((cat) => cat.id === id);
+    setEditedCategory(categoryToEdit);
+  };
 
-    useEffect(() => {
-        getCategories()
-            .then(data => {
-                const sortedData = data.sort((a, b) => a.label.localeCompare(b.label))
-                setCategories(sortedData)
-            })
-    }, [])
+  const handleDeleteCategory = (id) => {
+    deleteCategory(id)
+      .then(() => getCategories())
+      .then((data) => {
+        const sortedData = data.sort((a, b) => a.label.localeCompare(b.label));
+        setCategories(sortedData);
+      });
+  };
+
+  const saveCategory = (e) => {
+    e.preventDefault();
+    updateCategory(editingCategory, editedCategory)
+      .then(() => {
+        setEditingCategory(null);
+        setEditedCategory({});
+        return getCategories();
+      })
+      .then((data) => {
+        const sortedData = data.sort((a, b) => a.label.localeCompare(b.label));
+        setCategories(sortedData);
+      });
+  };
+
+  useEffect(() => {
+    getCategories().then((data) => {
+      const sortedData = data.sort((a, b) => a.label.localeCompare(b.label));
+      setCategories(sortedData);
+    });
+  }, []);
 
     return (
         <div className="container">
@@ -117,5 +122,12 @@ export const Category = () => {
                     </button>
                 </form>
             </div>
-        </div>
-    )}    
+          </fieldset>
+          <button type="submit" className="btn btn-primary">
+            Save New Category
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
