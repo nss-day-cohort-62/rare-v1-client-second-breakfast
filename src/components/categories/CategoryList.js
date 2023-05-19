@@ -79,61 +79,48 @@ export const Category = () => {
     });
   }, []);
 
-  return (
-    <div className="container">
-      <div className="categoryList">
-        <h1>Categories</h1>
-        {categories.map((category) => (
-          <div key={category.id} className="categoryRow">
-            {editingCategory === category.id ? (
-              <form onSubmit={saveCategory}>
-                <input
-                  type="text"
-                  name="label"
-                  required
-                  className="form-control"
-                  value={editedCategory.label}
-                  onChange={handleEditInputChange}
-                />
-                <button type="submit" className="btn btn-primary">
-                  Save
-                </button>
-              </form>
-            ) : (
-              <>
-                <span>{category.label}</span>
-                <button
-                  onClick={() => handleEditCategory(category.id)}
-                  className="editButton"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDeleteCategory(category.id)}
-                  className="deleteButton"
-                >
-                  Delete
-                </button>
-              </>
-            )}
-          </div>
-        ))}
-      </div>
-      <div className="categoryForm">
-        <form className="" onSubmit={createANewCategory}>
-          <h2 className="">Create A New Category</h2>
-          <fieldset>
-            <div className="category">
-              <label htmlFor="name">Label: </label>
-              <input
-                type="text"
-                name="label"
-                required
-                className="form-control"
-                placeholder="Enter a new category label here"
-                value={category.label || ""}
-                onChange={handleInputChange}
-              />
+    return (
+        <div className="container">
+            <div className="categoryList">
+                <h1>Categories</h1>
+                {categories.map(category => (
+                    <div key={category.id} className="categoryRow">
+                        {editingCategory === category.id ? (
+                            <form onSubmit={saveCategory}>
+                                <input type="text" name="label" required className="form-control"
+                                    value={editedCategory.label}
+                                    onChange={handleEditInputChange}
+                                />
+                                <button type="submit" className="btn btn-primary">Save</button>
+                            </form>
+                        ) : (
+                            <>
+                                <span>{category.label}</span>
+                                <img className="action__buttons" src="../gear.png" onClick={() => handleEditCategory(category.id)}></img>
+                                <img className="action__buttons" src="../trashcan.png" onClick={() => handleDeleteCategory(category.id)}></img>
+                            </>
+                        )}
+                    </div>
+                ))}
+            </div>
+            <div className="categoryForm">
+                <form className="" onSubmit={createANewCategory}>
+                    <h2 className="">Create A New Category</h2>
+                    <fieldset>
+                        <div className="category">
+                            <label htmlFor="name">Label: </label>
+                            <input type="text" name="label" required className="form-control"
+                                placeholder="Enter a new category label here"
+                                value={category.label || ''}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                    </fieldset>
+                    <button type="submit"
+                        className="btn btn-primary">
+                        Save New Category
+                    </button>
+                </form>
             </div>
           </fieldset>
           <button type="submit" className="btn btn-primary">
