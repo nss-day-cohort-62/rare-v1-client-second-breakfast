@@ -9,10 +9,6 @@ export const PostList = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        getPosts().then(postData => setPosts(postData))
-    }, [])
-
-    useEffect(() => {
         getPosts().then(postData => {
         const sortedData = postData.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date))
         setPosts(sortedData)
@@ -21,11 +17,12 @@ export const PostList = () => {
 
 
     const handleDeletePost = (postId) => {
-        deletePost(postId)
+        if(window.confirm("Are you sure you want to delete this post?")) {
+            deletePost(postId)
             .then(() => {
-                alert(`Post has been deleted`)
                 getPosts().then((postData) => setPosts(postData))
             })
+        }
     }
 
 
@@ -51,8 +48,8 @@ export const PostList = () => {
                 </section>
                 </section>
                 <section className="action__buttons_container">
-                    <img className="action__buttons" src="gear.png" onClick={() => navigate(`/posts/${post.id}/edit`)}></img>
-                    <img className="action__buttons" src="trashcan.png" onClick={() => {handleDeletePost(post.id)}}></img>
+                    <img className="action__button" src="gear.png" onClick={() => navigate(`/posts/${post.id}/edit`)}></img>
+                    <img className="action__button" src="trashcan.png" onClick={() => {handleDeletePost(post.id)}}></img>
                 </section>
             </section>
         })

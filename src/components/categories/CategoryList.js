@@ -79,8 +79,8 @@ export const Category = () => {
     });
   }, []);
 
-    return (
-        <div className="container">
+    return <>
+        <fieldset className="container">
             <div className="categoryList">
                 <h1>Categories</h1>
                 {categories.map(category => (
@@ -96,8 +96,8 @@ export const Category = () => {
                         ) : (
                             <>
                                 <span>{category.label}</span>
-                                <img className="action__buttons" src="../gear.png" onClick={() => handleEditCategory(category.id)}></img>
-                                <img className="action__buttons" src="../trashcan.png" onClick={() => handleDeleteCategory(category.id)}></img>
+                                <img className="action__button" src="../gear.png" onClick={() => handleEditCategory(category.id)}></img>
+                                <img className="action__button" src="../trashcan.png" onClick={() => handleDeleteCategory(category.id)}></img>
                             </>
                         )}
                     </div>
@@ -123,11 +123,5 @@ export const Category = () => {
                 </form>
             </div>
           </fieldset>
-          <button type="submit" className="btn btn-primary">
-            Save New Category
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-};
+    </>
+}
