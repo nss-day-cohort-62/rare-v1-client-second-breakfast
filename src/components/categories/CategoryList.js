@@ -91,8 +91,8 @@ export const Category = () => {
                         ) : (
                             <>
                                 <span>{category.label}</span>
-                                <button onClick={() => handleEditCategory(category.id)} className="editButton">Edit</button>
-                                <button onClick={() => handleDeleteCategory(category.id)} className="deleteButton">Delete</button>
+                                <img className="action__buttons" src="../gear.png" onClick={() => handleEditCategory(category.id)}></img>
+                                <img className="action__buttons" src="../trashcan.png" onClick={() => handleDeleteCategory(category.id)}></img>
                             </>
                         )}
                     </div>

@@ -35,3 +35,9 @@
 .icon {
     font-size: 1.2em;
 }
+
+.action__buttons {
+    width: 5%;
+    height: auto;
+    cursor: pointer;
+}
