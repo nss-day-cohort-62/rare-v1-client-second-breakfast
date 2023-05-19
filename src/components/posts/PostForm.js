@@ -62,8 +62,8 @@ export const PostForm = () => {
         }
 
         return publishPost(postToPublish)
-            .then(() => {
-                navigate("/")
+            .then((post) => {
+                navigate(`/posts/${post.id}`)
             })
     }
 

@@ -10,6 +10,7 @@ import { AllPosts } from "../components/posts/AllPosts"
 import { PostForm } from "../components/posts/PostForm"
 import { PostDetails } from "../components/posts/PostDetails"
 import { MyPost } from "../components/posts/MyPost"
+import { UpdatePostForm } from "../components/posts/UpdatePostForm"
 
 
 export const ApplicationViews = ({ token, setToken }) => {
@@ -25,6 +26,7 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/posts" element={<AllPosts />} />
         <Route path="/posts/publish" element={<PostForm />} />
         <Route path="/posts/:postId" element={<PostDetails />} />
+        <Route path="/posts/:postId/edit" element={ <UpdatePostForm /> } />
       </Route>
     </Routes>
   </>
