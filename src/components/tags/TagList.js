@@ -81,8 +81,8 @@ export const TagList = () => {
               ) : (
                 <>
                   <span>{tag.label}</span>
-                    <img className="action__buttons" src="gear.png" onClick={() => handleEditTag(tag.id)}></img>
-                    <img className="action__buttons" src="trashcan.png" onClick={() => handleDeleteTag(tag.id)}></img>
+                    <img className="action__button" src="gear.png" onClick={() => handleEditTag(tag.id)}></img>
+                    <img className="action__button" src="trashcan.png" onClick={() => handleDeleteTag(tag.id)}></img>
                   </>
               )}
             </div>
