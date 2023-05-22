@@ -60,16 +60,16 @@ export const UpdatePostForm = () => {
         }
 
     return <>
-    <form className="post">
-        <h2 className="post__title">Post Details:</h2>
+    <form className="update_post">
+        <h2 className="update__post_header">Post Details:</h2>
         <fieldset>
             <div className="form-group">
-                <label htmlFor="title">Title:</label>
+                <label className="update__post_title" htmlFor="title">Title:</label>
                 <input
                     name="title"
                     required autoFocus
                     type="text"
-                    className="form-control"
+                    className="form-control-title"
                     value={post.title}
                     onChange={changePostState}/>
             </div>
@@ -81,7 +81,7 @@ export const UpdatePostForm = () => {
                     name="image_url"
                     required autoFocus
                     type="text"
-                    className="form-control"
+                    className="form-control-image"
                     value={post.image_url}
                     onChange={changePostState}/>
             </div>
@@ -93,7 +93,7 @@ export const UpdatePostForm = () => {
                     name="content"
                     required autoFocus
                     type="text"
-                    className="form-control"
+                    className="form-control-content"
                     value={post.content}
                     onChange={changePostState}/>
             </div>
@@ -102,12 +102,11 @@ export const UpdatePostForm = () => {
             <div className="form-group">
                 <label htmlFor="category">Category:</label>
                 <select
-                    name="content"
+                    name="category"
                     required
-                    className="form-control"
+                    className="form-control-category"
                     value={post.category}
                     onChange={changePostState}>
-                    <option value="0">Select Game:</option>
                     {categories.map(category => 
                         <option key={`category--${category.id}`} value={category.id}>{category.label}</option>
                     )}
@@ -124,16 +123,16 @@ export const UpdatePostForm = () => {
                                         type="checkbox"
                                         name="tag"
                                         required
-                                        className="form-control"
+                                        className="form-control-tag"
                                         value={post.tag}
                                         onChange={changePostState}/>
                                         {tag.label}
                                 </label>
                                 ))}
                         </div>
-                        </div>
-                </fieldset>
-        <button className="btn btn-primary"
+            </div>
+        </fieldset>
+        <button className="btn btn-save"
         onClick={evt => {
             evt.preventDefault()
             
@@ -147,9 +146,11 @@ export const UpdatePostForm = () => {
                 category: parseInt(post.category)
             }
 
-            updatePostDetails(updatedPost)
+            console.log(updatedPost.tag)
+
+            updatePostDetails(updatedPost.category)
             .then(() => navigate("/posts"))}}>
-            Save Post
+            Save
         </button>
     </form>
 </>

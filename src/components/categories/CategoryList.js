@@ -80,13 +80,37 @@ export const Category = () => {
     }, []);
 
     return <>
-    <fieldset className="container">
-        <div className="categoryList">
-            <h1>Categories</h1>
-            {categories.map(category => (
-                <div key={category.id} className="categoryRow">
-                    {editingCategory === category.id ? (
-                        <form onSubmit={saveCategory}>
+
+        <fieldset className="container">
+            <div className="categoryList">
+                <h1>Categories</h1>
+                {categories.map(category => (
+                    <div key={category.id} className="categoryRow">
+                        {editingCategory === category.id ? (
+                            <form onSubmit={saveCategory}>
+                                <input type="text" name="label" required className="form-control"
+                                    value={editedCategory.label}
+                                    onChange={handleEditInputChange}
+                                />
+                                <button type="submit" className="btn btn-primary">Save</button>
+                            </form>
+                        ) : (
+                            <>
+                                <span>{category.label}</span>
+                                <img className="action__button" src="../gear.png" onClick={() => handleEditCategory(category.id)}></img>
+                                <img className="action__button" src="../trashcan.png" onClick={() => handleDeleteCategory(category.id)}></img>
+                            </>
+                        )}
+                    </div>
+                ))}
+            </div>
+            <div className="categoryForm">
+                <form className="" onSubmit={createANewCategory}>
+                    <h2 className="">Create A New Category</h2>
+                    <fieldset>
+                        <div className="category">
+                            <label htmlFor="name">Label: </label>
+
                             <input type="text" name="label" required className="form-control"
                                 value={editedCategory.label}
                                 onChange={handleEditInputChange}
@@ -125,3 +149,4 @@ export const Category = () => {
     </fieldset>
 </>
 }
+

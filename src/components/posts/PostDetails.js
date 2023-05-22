@@ -17,11 +17,12 @@ export const PostDetails = () => {
     )
 
     const handleDeletePost = (postId) => {
-        deletePost(postId)
+        if(window.confirm("Are you sure you want to delete this post?")) {
+            deletePost(postId)
             .then(() => {
-                alert(`Post has been deleted`)
                 navigate('/posts')
             })
+        }
     }
 
     return (
@@ -42,8 +43,8 @@ export const PostDetails = () => {
                     </section>
                     <div className="post__content_detail">{post.content}</div>
                     <section className="detail__action_buttons">
-                        <img className="action__buttons" src="../gear.png"></img>
-                        <img className="action__buttons" src="../trashcan.png" onClick={() => {handleDeletePost(post.id)}}></img>
+                        <img className="action__button" src="../gear.png" onClick={() => navigate(`/posts/${post.id}/edit`)}></img>
+                        <img className="action__button" src="../trashcan.png" onClick={() => {handleDeletePost(post.id)}}></img>
                     </section>
                 </section>
             </article>

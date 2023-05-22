@@ -17,6 +17,16 @@
     margin-top: 50px;
 }
 
+.update_post {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
 .post__header {
     display: flex;
     justify-content: space-between;
@@ -39,6 +49,13 @@
 }
 
 .post__title_detail {
+    font-weight: bolder;
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.update__post_header {
     font-weight: bolder;
     font-size: 22px;
     text-align: center;
@@ -229,6 +246,11 @@
     font-weight: bolder;
 }
 
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
 .form-control-title {
     width: 500px;
     height: 35px;
@@ -247,6 +269,7 @@
     width: 500px;
     height: 250px;
     margin-bottom: 25px;
+    padding: 5px;
 }
 
 .form-control-category {
@@ -269,15 +292,27 @@
     border-radius: 5px;
 }
 
+.btn-save {
+    width: 75px;
+    height: 35px;
+    color: white;
+    background-color: #48C88C;
+    border: none;
+    border-radius: 5px;
+    align-self: center;
+    font-weight: bold;
+}
+
 .action__buttons_container {
     display: flex;
     justify-content: flex-end;
 }
 
-.action__buttons {
+.action__button {
     width: 5%;
     height: auto;
     cursor: pointer;
+    
 }
 
 .gear__buttons {
