@@ -36,8 +36,8 @@
     font-size: 1.2em;
 }
 
-.action__buttons {
-    width: 5%;
+.action__button {
+    width: 8%;
     height: auto;
     cursor: pointer;
 }

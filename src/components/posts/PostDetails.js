@@ -38,7 +38,7 @@ export const PostDetails = () => {
                             <div className="post__author_detail" onClick={() => navigate(`/users/${post.user.user.id}`)}>By: <b>{post.user?.user?.username}</b></div>
                             <div className="post__publication_date_detail">Published: <i>{post.publication_date}</i> </div>
                         </div>
-                        <button className="comment__button">View Comments</button>
+                        <button className="comment__button" onClick={() => navigate(`/posts/${post.id}/comments`)}>View Comments</button>
                         <div>Reactions: </div>
                     </section>
                     <div className="post__content_detail">{post.content}</div>
@@ -47,8 +47,6 @@ export const PostDetails = () => {
                         <img className="action__button" src="../trashcan.png" onClick={() => {handleDeletePost(post.id)}}></img>
                     </section>
                 </section>
-
-
             </article>
         </>
     )
