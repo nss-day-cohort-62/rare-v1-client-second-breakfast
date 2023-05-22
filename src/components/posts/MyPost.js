@@ -7,7 +7,6 @@ export const MyPost = () => {
     const [filteredPost, setFilteredPosts] = useState([])
     const localUser = localStorage.getItem("auth_token")
     const navigate = useNavigate()
-    console.log(localUser)
     useEffect(
         () => {
             getMyPosts().then(

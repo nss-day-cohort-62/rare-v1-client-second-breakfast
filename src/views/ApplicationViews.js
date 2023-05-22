@@ -12,6 +12,7 @@ import { PostDetails } from "../components/posts/PostDetails"
 import { MyPost } from "../components/posts/MyPost"
 import { UpdatePostForm } from "../components/posts/UpdatePostForm"
 import { TagList } from "../components/tags/TagList"
+import { CommentList } from "../components/comments/CommentList"
 
 
 export const ApplicationViews = ({ token, setToken }) => {
@@ -29,6 +30,7 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/posts/publish" element={<PostForm />} />
         <Route path="/posts/:postId" element={<PostDetails />} />
         <Route path="/posts/:postId/edit" element={ <UpdatePostForm /> } />
+        <Route path="/posts/:postId/comments" element={ <CommentList /> } />
         <Route path="/tagmanager" element={<TagList />} />
       </Route>
     </Routes>
