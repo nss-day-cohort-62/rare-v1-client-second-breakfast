@@ -3,13 +3,18 @@ import { useParams } from "react-router-dom";
 import { getComments, createComment, getCommentsByPostId, getPostComments } from "../../managers/CommentManager";
 
 export const CommentList = () => {
-    const [comment, setComment] = useState({content: ""});
-    const [comments, setComments] = useState([]);
-    const { postId } = useParams();
+    const [comment, setComment] = useState({ content: "" })
+    const [comments, setComments] = useState([])
+    const { postId } = useParams()
 
     useEffect(() => {
-        getPostComments(postId).then((commentData) => setComments(commentData));
+        getComments()
+            .then((commentData) => {
+                const filteredComments = commentData.filter((comment) => comment.post === parseInt(postId));
+                setComments(filteredComments);
+            });
     }, [postId]);
+
 
     const handleInputChange = (event) => {
         const newComment = { ...comment };
