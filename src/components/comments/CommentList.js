@@ -1,18 +1,26 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getComments, createComment, getCommentsByPostId, getPostComments } from "../../managers/CommentManager";
+import { getComments, createComment, getCommentsByPostId, getPostComments, deleteComment } from "../../managers/CommentManager";
 
 export const CommentList = () => {
-    const [comment, setComment] = useState({ content: "" })
     const [comments, setComments] = useState([])
     const { postId } = useParams()
+    const [comment, setComment] = useState({ 
+        content: "",
+        created_on: new Date().toISOString().slice(0, 10),
+        author: "",
+        post: postId
+    })
+
+    const getFilteredComments = () => {
+        getComments()
+        .then((commentData) => {
+            const filteredComments = commentData.filter((comment) => comment.post.id === parseInt(postId));
+            setComments(filteredComments);
+    })}
 
     useEffect(() => {
-        getComments()
-            .then((commentData) => {
-                const filteredComments = commentData.filter((comment) => comment.post === parseInt(postId));
-                setComments(filteredComments);
-            });
+        getFilteredComments()
     }, [postId]);
 
 
@@ -23,15 +31,28 @@ export const CommentList = () => {
     };
 
     const saveComment = () => {
+        
         const newComment = {
             content: comment.content,
-            postId
+            created_on: comment.created_on,
+            author: parseInt(comment.author),
+            post: parseInt(comment.post)
         };
-        createComment(newComment).then(() => {
-            getCommentsByPostId(postId).then(setComments);
-            setComment({content: ""});
-        });
-    };
+
+        createComment(newComment)
+            .then(() => {
+                getFilteredComments()
+        })
+    }
+
+    const handleDeleteComment = (commentId) => {
+        if(window.confirm("Are you sure you want to delete this comment?")) {
+            deleteComment(commentId)
+            .then(() => {
+                getFilteredComments()
+            })
+        }
+    }
 
     return (
         <div>
@@ -51,6 +72,9 @@ export const CommentList = () => {
             {comments.map((comment) => (
                 <div key={comment.id}>
                     <p>{comment.content}</p>
+                    <p>{comment.author.user.username}</p>
+                    <p>{comment.created_on}</p>
+                    <img className="action__button" src="/trashcan.png" onClick={() => handleDeleteComment(comment.id)}></img>
                     {/* Display additional information about the comment here */}
                 </div>
             ))}

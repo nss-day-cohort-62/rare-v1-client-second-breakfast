@@ -15,8 +15,8 @@ export const UpdatePostForm = () => {
         image_url: "",
         content: "",
         approved: true,
-        category: 0,
-        tag: [0]
+        category: "",
+        tag: []
     })
 
     useEffect(
@@ -29,7 +29,7 @@ export const UpdatePostForm = () => {
                     postObject.image_url = postData.image_url
                     postObject.content = postData.content
                     postObject.approved = postData.approved
-                    postObject.category = postData.category
+                    postObject.category = postData.category.id
                     postObject.tag = postData.tag
                     updatePost(postObject)
                 })
@@ -103,7 +103,7 @@ export const UpdatePostForm = () => {
                 <label htmlFor="category">Category:</label>
                 <select
                     name="category"
-                    required
+                    required autoFocus
                     className="form-control-category"
                     value={post.category}
                     onChange={changePostState}>
@@ -146,9 +146,7 @@ export const UpdatePostForm = () => {
                 category: parseInt(post.category)
             }
 
-            console.log(updatedPost.tag)
-
-            updatePostDetails(updatedPost.category)
+            updatePostDetails(updatedPost)
             .then(() => navigate("/posts"))}}>
             Save
         </button>

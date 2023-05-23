@@ -15,7 +15,6 @@ export const PostList = () => {
         })
     }, [])
 
-
     const handleDeletePost = (postId) => {
         if(window.confirm("Are you sure you want to delete this post?")) {
             deletePost(postId)

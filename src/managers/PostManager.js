@@ -56,3 +56,30 @@ export const getMyPosts = () => {
     })
         .then(response => response.json())
 }
+
+export const filterPostsByAuthor = (authorId) => {
+    return fetch(`http://localhost:8000/posts?author=${authorId}`, {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        }
+    })
+        .then(response => response.json())
+}
+
+export const filterPostsByCategory = (categoryId) => {
+    return fetch(`http://localhost:8000/posts?category=${categoryId}`, {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        }
+    })
+        .then(response => response.json())
+}
+
+export const filterPostsBySearch = (searchTerm) => {
+    return fetch(`http://localhost:8000/posts?search=${searchTerm}`, {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        }
+    })
+        .then(response => response.json())
+}
