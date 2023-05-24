@@ -30,7 +30,7 @@ export const UpdatePostForm = () => {
                     postObject.content = postData.content
                     postObject.approved = postData.approved
                     postObject.category = postData.category.id
-                    postObject.tag = postData.tag.id
+                    postObject.tag = postData.tag.map((tag) => tag.id)
                     updatePost(postObject)
                 })
         },
@@ -135,6 +135,7 @@ export const UpdatePostForm = () => {
                                         type="checkbox"
                                         name="tag"
                                         required
+                                        checked={post.tag.includes(tag.id)}
                                         className="form-control-tag"
                                         value={tag.id}
                                         onChange={handleCheckbox}/>
