@@ -36,7 +36,7 @@ export const UserDetail = () => {
                     <span className="property">Bio:</span> 
                     <span className="value">{user?.bio}</span>
                 </div>
-                {/* <div className="rareuser_subscribed">
+                {/* <div className="rareUser_subscribed">
               {
   rareUser.subscribed ?
   <button
@@ -47,7 +47,7 @@ export const UserDetail = () => {
   <button
   className="btn-2" onClick={(e) => {
     subscribeToThisUser(e, rareUser.id)
-  }}>Join</button>
+  }}>Subscribe</button>
 }
 
               </div> */}
