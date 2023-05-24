@@ -42,11 +42,19 @@ export const PostForm = () => {
     const handleCheckbox = (evt) => {
         const { checked, value } = evt.target;
         if (checked) {
-            setSelectedTags([...selectedTags, value]);
+            updatePost((post) => ({
+                ...post,
+                tag: [...post.tag, parseInt(value)]}))        
         } else {
-            setSelectedTags(selectedTags.filter(tag => tag !== value));
+            // setSelectedTags(selectedTags.filter(tag => tag !== value))
+            // updatePost(selectedTags)
+            console.log('you have reached this part of the land')
         }
     };
+
+    useEffect(() => {
+        console.log(selectedTags);
+      }, [selectedTags]);
 
     const publishButton = (event) => {
         event.preventDefault()
@@ -58,7 +66,7 @@ export const PostForm = () => {
             content: post.content,
             approved: true,
             category: parseInt(post.category),
-            tag: parseInt(selectedTags)
+            tag: post.tag.map((tag) => parseInt(tag))
         }
 
         return publishPost(postToPublish)
@@ -159,7 +167,7 @@ export const PostForm = () => {
                                             name="tags"
                                             className="form-control-tag"
                                             value={tag.id}
-                                            checked={selectedTags.checked}
+                                            checked={post.tag.includes(tag.id)}
                                             onChange={handleCheckbox}
                                             />
                                             {tag.label}
