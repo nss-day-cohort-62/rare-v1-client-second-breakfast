@@ -15,3 +15,36 @@ export const getUser = (userId) => {
     })
         .then((response) => response.json())
     }
+
+    export const subscribeToUser = (rareUserId) => {
+        return fetch(`http://localhost:8000/rareuser/${rareUserId}/subscribe`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${localStorage.getItem("lu_token")}`,
+          },
+          body: JSON.stringify(rareUserId),
+        }).then((res) => res.json());
+      };
+
+    export const unsubscribeToUser = (rareUserId) => {
+        return fetch(`http://localhost:8000/rareuser/${rareUserId}/unsubscribe`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${localStorage.getItem("lu_token")}`,
+          },
+          body: JSON.stringify(rareUserId),
+        }).then((res) => res.json());
+      };
+
+    export const resubscribeToUser = (rareUserId) => {
+        return fetch(`http://localhost:8000/rareuser/${rareUserId}/subscribe`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${localStorage.getItem("lu_token")}`,
+          },
+          body: JSON.stringify(rareUserId),
+        }).then((res) => res.json());
+      };

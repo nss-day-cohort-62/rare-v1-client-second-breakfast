@@ -13,10 +13,9 @@ export const CommentList = () => {
     })
 
     const getFilteredComments = () => {
-        getComments()
+        getCommentsByPostId(postId)
         .then((commentData) => {
-            const filteredComments = commentData.filter((comment) => comment.post.id === parseInt(postId));
-            setComments(filteredComments);
+            setComments(commentData);
     })}
 
     useEffect(() => {

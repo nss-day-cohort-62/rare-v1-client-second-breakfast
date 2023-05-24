@@ -36,6 +36,21 @@ export const UserDetail = () => {
                     <span className="property">Bio:</span> 
                     <span className="value">{user?.bio}</span>
                 </div>
+                {/* <div className="rareUser_subscribed">
+              {
+  rareUser.subscribed ?
+  <button
+  className="btn-3" onClick={(e) => {
+    unsubscribeFromThisUser(e, rareUser.id)
+  }}>Unsubscribe</button>
+  :
+  <button
+  className="btn-2" onClick={(e) => {
+    subscribeToThisUser(e, rareUser.id)
+  }}>Subscribe</button>
+}
+
+              </div> */}
             </div>
         </div>
     )
