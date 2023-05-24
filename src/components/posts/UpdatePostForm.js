@@ -30,7 +30,7 @@ export const UpdatePostForm = () => {
                     postObject.content = postData.content
                     postObject.approved = postData.approved
                     postObject.category = postData.category.id
-                    postObject.tag = postData.tag
+                    postObject.tag = postData.tag.id
                     updatePost(postObject)
                 })
         },
@@ -58,6 +58,18 @@ export const UpdatePostForm = () => {
         copy[domEvent.target.name] = domEvent.target.value
         updatePost(copy)
         }
+
+    const handleCheckbox = (evt) => {
+        const { checked, value } = evt.target;
+        const copy = {...post}
+        if (checked) {
+            copy.tag.push(parseInt(value))
+            updatePost(copy)     
+        } else {
+            copy.tag = copy.tag.filter(tag => tag !== parseInt(value))
+            updatePost(copy)
+        }
+    };
 
     return <>
     <form className="update_post">
@@ -124,8 +136,8 @@ export const UpdatePostForm = () => {
                                         name="tag"
                                         required
                                         className="form-control-tag"
-                                        value={post.tag}
-                                        onChange={changePostState}/>
+                                        value={tag.id}
+                                        onChange={handleCheckbox}/>
                                         {tag.label}
                                 </label>
                                 ))}
@@ -143,7 +155,8 @@ export const UpdatePostForm = () => {
                 image_url: post.image_url,
                 content: post.content,
                 approved: post.approved,
-                category: parseInt(post.category)
+                category: parseInt(post.category),
+                tag: post.tag
             }
 
             updatePostDetails(updatedPost)

@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react"
 import "./Posts.css"
-import { filterPostsByAuthor, filterPostsByCategory, filterPostsBySearch, getPosts } from "../../managers/PostManager"
+import { filterPostsByAuthor, filterPostsByCategory, filterPostsBySearch, filterPostsByTag, getPosts } from "../../managers/PostManager"
 import { Link, useNavigate } from "react-router-dom"
 import { getCategories } from "../../managers/CategoryManager"
 import { getUsers } from "../../managers/UserManager"
+import { getTags } from "../../managers/TagManager"
 
 export const AllPosts = () => {
     const [posts, setPosts] = useState([])
     const [categories, setCategories] = useState([])
     const [authors, setAuthors] = useState([])
+    const [tags, setTags] = useState([])
     const [filterByAuthor, setFilterByAuthor] = useState()
     const [filterByCategory, setFilterByCategory] = useState()
+    const [filterByTag, setFilterByTag] = useState()
     const [ filterBySearch, setFilterBySearch ] = useState()
     const navigate = useNavigate()
 
@@ -30,6 +33,16 @@ export const AllPosts = () => {
             getCategories()
                 .then((categoryArray) => {
                     setCategories(categoryArray)
+                })
+        },
+        []
+    )
+
+    useEffect(
+        () => {
+            getTags()
+                .then((tagArray) => {
+                    setTags(tagArray)
                 })
         },
         []
@@ -61,6 +74,15 @@ export const AllPosts = () => {
                     .then((filteredData) => setPosts(filteredData))
             }
         }, [filterByAuthor]
+    )
+
+    useEffect(
+        () => {
+            if (filterByTag) {
+                filterPostsByTag(filterByTag)
+                    .then((filteredData) => setPosts(filteredData))
+            }
+        }, [filterByTag]
     )
 
     useEffect(
@@ -99,6 +121,18 @@ export const AllPosts = () => {
             </select>
         </section>
         <section>
+            <select
+                value={filterByTag}
+                onChange={(evt) => setFilterByTag(evt.target.value)}>
+                <option value="">Tag Select</option>
+                {tags.map((tag) => (
+                    <option key={tag.id} value={tag.id}>
+                        {tag.label}
+                    </option>
+                ))}
+            </select>
+        </section>
+        <section>
             <input type="text" placeholder="Enter text" onChange={
                 (changeEvent => {
                     setFilterBySearch(changeEvent.target.value)
@@ -125,7 +159,11 @@ export const AllPosts = () => {
                         <div className="post__authors" onClick={() => navigate(`/users/${post.user.user.id}`)}>{post.user.user.username}</div>
                         <div className="post__dates">{post.publication_date}</div>
                         <div className="post__categories">{post.category.label}</div>
-                        <div className="post__tags">{post.tag.label}</div>
+                        <div className="post__tags">
+                        {post.tag?.map((tag) => {
+                            return <div key={tag.id}>{tag.label}</div>
+                        })}
+                        </div>
                     </section>
                 </>
             })
