@@ -83,3 +83,12 @@ export const filterPostsBySearch = (searchTerm) => {
     })
         .then(response => response.json())
 }
+
+export const filterPostsByTag = (tagId) => {
+    return fetch(`http://localhost:8000/posts?tag=${tagId}`, {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        }
+    })
+        .then(response => response.json())
+}

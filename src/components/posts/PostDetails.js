@@ -2,12 +2,10 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { deletePost, getExactPosts } from "../../managers/PostManager"
 import "./Posts.css"
-import { getPostTags } from "../../managers/TagManager"
 
 export const PostDetails = () => {
 
     const [post, setExactPost] = useState({})
-    const [ post_tags, setPostTags ] = useState([])
     const { postId } = useParams()
     const navigate = useNavigate()
 
@@ -17,13 +15,6 @@ export const PostDetails = () => {
                 setExactPost(postData)})
         }, [postId]
     )
-
-    useEffect(
-        () => {
-            getPostTags()
-                .then(postTagData => {setPostTags(postTagData)
-        })
-    }, [])
 
     const handleDeletePost = (postId) => {
         if(window.confirm("Are you sure you want to delete this post?")) {
@@ -41,8 +32,8 @@ export const PostDetails = () => {
                 <section className="post_detail">
                     <div className="post__title_detail">{post.title}</div>
                     <div>
-                        {post_tags.map(pt => {
-                            <div>{pt.post.tag}</div>
+                        {post.tag?.map((tag) => {
+                            return <div key={tag.id}>{tag.label}</div>
                         })}
                     </div>
                     <div className="post__category_detail">Category: {post.category?.label} </div>
