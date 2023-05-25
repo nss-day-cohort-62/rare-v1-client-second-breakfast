@@ -16,6 +16,15 @@ export const getExactPosts = (postId) => {
         .then(response => response.json())
 }
 
+export const getAllPosts = () => {
+    return fetch("http://localhost:8000/posts/allposts", {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+        }
+    })
+        .then(response => response.json())
+}
+
 export const publishPost = (postToPublish) => {
     return fetch("http://localhost:8000/posts", {
         method: "POST",

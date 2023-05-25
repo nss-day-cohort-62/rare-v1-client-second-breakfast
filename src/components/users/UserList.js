@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { getUsers } from '../../managers/UserManager'
+import { getRareUsers } from '../../managers/UserManager'
 import styles from './user.css'
 import { Link } from "react-router-dom"
 
 export const UserList = () => {
-    const [users, setUsers] = useState([])
+    const [rareUsers, setRareUsers] = useState([])
 
     useEffect(() => {
-        getUsers()
+        getRareUsers()
             .then(data => {
-                const sortedData = data.sort((a, b) => a.username.localeCompare(b.username))
-                setUsers(sortedData)
+                const sortedData = data.sort((a, b) => a.user.username.localeCompare(b.user.username))
+                setRareUsers(sortedData)
             })
     }, [])
 
     return (
         <div className="userListContainer">
             <h1>User Management</h1>
-            {users.map(user => (
-                <div key={user.id} className="userListRow">
+            {rareUsers.map(rareUser => (
+                <div key={rareUser.id} className="userListRow">
                     <div>
                         <span className="property">Username:</span> 
-                        <Link to={`/users/${user.id}`} className="value">{user.username}</Link>
+                        <Link to={`/users/${rareUser.id}`} className="value">{rareUser.user.username}</Link>
                     </div>
-                    <div><span className="property">First Name:</span> <span className="value">{user.first_name}</span></div>
-                    <div><span className="property">Last Name:</span> <span className="value">{user.last_name}</span></div>
-                    <div><span className="property">Email:</span> <span className="value">{user.email}</span></div>
+                    <div><span className="property">First Name:</span> <span className="value">{rareUser.user.first_name}</span></div>
+                    <div><span className="property">Last Name:</span> <span className="value">{rareUser.user.last_name}</span></div>
+                    <div><span className="property">Email:</span> <span className="value">{rareUser.user.email}</span></div>
                 </div>
             ))}
         </div>

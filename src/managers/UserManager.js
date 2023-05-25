@@ -1,5 +1,5 @@
-export const getUsers = () => {
-    return fetch('http://localhost:8000/user', {
+export const getRareUsers = () => {
+    return fetch('http://localhost:8000/rareuser', {
         headers:{
             "Authorization": `Token ${localStorage.getItem("auth_token")}`
         }
@@ -7,8 +7,8 @@ export const getUsers = () => {
     .then(res => res.json())
 }
 
-export const getUser = (userId) => {
-    return fetch(`http://localhost:8000/rareuser/${userId}/`, {
+export const getRareUser = (userId) => {
+    return fetch(`http://localhost:8000/rareuser/${userId}`, {
         headers: {
         "Authorization": `Token ${localStorage.getItem("auth_token")}`,
         },
@@ -21,10 +21,10 @@ export const getUser = (userId) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${localStorage.getItem("lu_token")}`,
+            Authorization: `Token ${localStorage.getItem("auth_token")}`,
           },
           body: JSON.stringify(rareUserId),
-        }).then((res) => res.json());
+        })
       };
 
     export const unsubscribeToUser = (rareUserId) => {
@@ -32,10 +32,10 @@ export const getUser = (userId) => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${localStorage.getItem("lu_token")}`,
+            Authorization: `Token ${localStorage.getItem("auth_token")}`,
           },
           body: JSON.stringify(rareUserId),
-        }).then((res) => res.json());
+        })
       };
 
     export const resubscribeToUser = (rareUserId) => {
@@ -43,8 +43,8 @@ export const getUser = (userId) => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${localStorage.getItem("lu_token")}`,
+            Authorization: `Token ${localStorage.getItem("auth_token")}`,
           },
           body: JSON.stringify(rareUserId),
-        }).then((res) => res.json());
+        })
       };

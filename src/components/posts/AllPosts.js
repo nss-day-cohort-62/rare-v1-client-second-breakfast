@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import "./Posts.css"
-import { filterPostsByAuthor, filterPostsByCategory, filterPostsBySearch, filterPostsByTag, getPosts } from "../../managers/PostManager"
+import { filterPostsByAuthor, filterPostsByCategory, filterPostsBySearch, filterPostsByTag, getAllPosts, getPosts } from "../../managers/PostManager"
 import { Link, useNavigate } from "react-router-dom"
 import { getCategories } from "../../managers/CategoryManager"
-import { getUsers } from "../../managers/UserManager"
+import { getRareUsers } from "../../managers/UserManager"
 import { getTags } from "../../managers/TagManager"
 
 export const AllPosts = () => {
@@ -18,11 +18,11 @@ export const AllPosts = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        getPosts().then(postData => setPosts(postData))
+        getAllPosts().then(postData => setPosts(postData))
     }, [])
 
     useEffect(() => {
-        getPosts().then(postData => {
+        getAllPosts().then(postData => {
             const sortedData = postData.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date))
             setPosts(sortedData)
         })
@@ -50,7 +50,7 @@ export const AllPosts = () => {
 
     useEffect(
         () => {
-            getUsers()
+            getRareUsers()
                 .then((userArray) => {
                     setAuthors(userArray)
                 })
